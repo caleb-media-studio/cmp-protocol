@@ -1,0 +1,22 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+coverage/
+.DS_Store
+
+# Language SDK build outputs
+sdk/rust/target/
+**/__pycache__/
+**/*.egg-info/
+.pytest_cache/
+*.pyc
+*.pyo
+sdk/python/.venv/
+sdk/go/cmp.test
+sdk/rust/.env
+packages/*/src/*.js
+packages/*/src/*.d.ts
+packages/*/src/*.js.map

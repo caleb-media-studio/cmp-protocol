@@ -1,0 +1,20 @@
+{
+  "name": "cmp-protocol-standard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/protocol"
+  ],
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm --filter @cmp-chat/protocol run test && pnpm run schema:check",
+    "typecheck": "pnpm run build",
+    "schema:check": "node scripts/validate-schemas.mjs"
+  },
+  "packageManager": "pnpm@10.34.9",
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
+  }
+}

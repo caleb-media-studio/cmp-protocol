@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cmp.chat/spec/repository/core-v1.schema.json",
+  "title": "CMP Core versioned context",
+  "$defs": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id","kind","content","status","sourceRefs","authorId","updatedAt"],
+      "properties": {
+        "id": {"type":"string","minLength":1,"maxLength":128},
+        "kind": {"enum":["fact","decision","episode","instruction","evidence"]},
+        "content": {"type":"string","minLength":1,"maxLength":100000},
+        "status": {"enum":["proposed","approved","superseded","disputed"]},
+        "sourceRefs": {"type":"array","items":{"type":"string","maxLength":512},"maxItems":100},
+        "authorId": {"type":"string","minLength":1,"maxLength":128},
+        "updatedAt": {"type":"string","format":"date-time"}
+      }
+    },
+    "change": {
+      "oneOf": [
+        {"type":"object","additionalProperties":false,"required":["op","record"],
+          "properties":{"op":{"const":"put"},"record":{"$ref":"#/$defs/record"}}},
+        {"type":"object","additionalProperties":false,"required":["op","id"],
+          "properties":{"op":{"const":"delete"},"id":{"type":"string","minLength":1}}}
+      ]
+    },
+    "commitRequest": {
+      "type":"object","additionalProperties":false,
+      "required":["branch","expectedHead","authorId","message","changes"],
+      "properties":{
+        "branch":{"type":"string","minLength":1,"maxLength":120},
+        "expectedHead":{"type":"string","minLength":1},
+        "authorId":{"type":"string","minLength":1},
+        "message":{"type":"string","minLength":1},
+        "changes":{"type":"array","maxItems":500,"items":{"$ref":"#/$defs/change"}}
+      }
+    }
+  }
+}
