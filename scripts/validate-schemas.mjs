@@ -8,6 +8,15 @@ const read=name=>JSON.parse(readFileSync(new URL("../spec/"+name,import.meta.url
 const wire=read("wire.schema.json"),repo=read("repository.schema.json");
 const validWire=ajv.compile(wire);
 ajv.addSchema(repo);
+const transport=read("transport.schema.json");
+const validManifest=ajv.compile(transport.$defs.manifest);
+const validRefs=ajv.compile(transport.$defs.refs);
+const validSnapshot=ajv.compile(transport.$defs.snapshot);
+const example={protocol:"cmp",transportVersion:1,repository:"example/knowledge",defaultBranch:"main",head:"a".repeat(64),capabilities:{refs:true,snapshot:true,commit:true},links:{refs:"/example/knowledge.cmp?view=refs",snapshot:"/example/knowledge.cmp?view=snapshot&ref=main"}};
+assert.ok(validManifest(example),JSON.stringify(validManifest.errors));
+assert.equal(validManifest({...example,protocol:"git"}),false);
+assert.ok(validRefs({repository:example.repository,branches:{main:"a".repeat(64)}}));
+assert.ok(validSnapshot({repository:example.repository,ref:"main",head:"a".repeat(64),records:[]}));
 const validRecord=ajv.getSchema(repo.$id+"#/$defs/record");
 const validCommit=ajv.getSchema(repo.$id+"#/$defs/commitRequest");
 assert.ok(validRecord&&validCommit,"Core record/commit validators must exist");

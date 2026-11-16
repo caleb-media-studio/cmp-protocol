@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cmp.chat/spec/transport/v1.schema.json",
+  "title": "CMP .cmp HTTP repository transport v1",
+  "$defs": {
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "protocol",
+        "transportVersion",
+        "repository",
+        "defaultBranch",
+        "head",
+        "capabilities",
+        "links"
+      ],
+      "properties": {
+        "protocol": {
+          "const": "cmp"
+        },
+        "transportVersion": {
+          "const": 1
+        },
+        "repository": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "defaultBranch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "head": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "capabilities": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "refs",
+            "snapshot",
+            "commit"
+          ],
+          "properties": {
+            "refs": {
+              "type": "boolean"
+            },
+            "snapshot": {
+              "type": "boolean"
+            },
+            "commit": {
+              "type": "boolean"
+            }
+          }
+        },
+        "links": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "refs",
+            "snapshot"
+          ],
+          "properties": {
+            "refs": {
+              "type": "string"
+            },
+            "snapshot": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "branches"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "branches": {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_./-]{0,119}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "ref",
+        "head",
+        "records"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "head": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "https://cmp.chat/spec/repository/core-v1.schema.json#/$defs/record"
+          }
+        }
+      }
+    }
+  }
+}
