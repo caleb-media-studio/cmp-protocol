@@ -1,12 +1,21 @@
 # CMP Protocol
 
+## Public source versus proprietary CMP Cloud
+
+The Core protocol, self-hosted Core server, and CMP client SDKs are
+Apache-2.0 licensed. **CMP Connect, managed authentication, WebSocket
+streaming, agent coordination, and session archives are proprietary CMP Cloud
+services, not part of the self-hosted server.** The CMP Web source repository
+is private. See [Public vs. proprietary](docs/public-vs-proprietary.md),
+[LICENSE](LICENSE), and [Security](SECURITY.md).
+
+
 CMP (Context Management Protocol) is an interoperable standard for persistent,
 versioned context repositories. The public Core specification covers knowledge
 records, immutable context commits, branches, snapshots, diffs, merges and
 conditional writes. It is not source-code hosting.
 
-This is the clean public-source candidate, still held in a private GitHub
-repository until testing and the publication audit are complete.
+This codebase is public-source, in pre-alpha, and not production-certified.
 
 ## What Core includes
 

@@ -1,6 +1,6 @@
 # CMP Core and CMP Cloud: Source Ownership
 
-Status: Architectural migration contract, November 16, 2026. Not yet released.
+Status: Source ownership and public/private boundary, November 16, 2026. CMP Core is pre-alpha.
 
 ## Core rule
 
@@ -51,7 +51,7 @@ Verified source-code identity is required for Cloud coding-agent coordination.
 
 ## Release history policy
 
-The current private repositories have mixed-feature Git histories. Ordinary
+The archived legacy repositories have mixed-feature Git histories. Ordinary
 file removal or rebase does not remove old blobs reachable from earlier commits,
 tags, releases or caches. Preserve original private histories, migrate code
 first, and publish only audited clean-source histories after review.
@@ -66,4 +66,4 @@ first, and publish only audited clean-source histories after review.
 6. Revise private cmp-web source and public product documentation.
 7. Clean-history, dependency, secret and distribution audit.
 
-Earlier v0.1 docs remain transition artifacts until all gates pass.
+The Core publication has a separate fresh Git history. Cloud service migration, production readiness and client parity are separate ongoing gates.
