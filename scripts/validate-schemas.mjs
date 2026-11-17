@@ -7,6 +7,16 @@ addFormats(ajv);
 const read=name=>JSON.parse(readFileSync(new URL("../spec/"+name,import.meta.url),"utf8"));
 const wire=read("wire.schema.json"),repo=read("repository.schema.json");
 const validWire=ajv.compile(wire);
+const validIdentity=ajv.compile(read("identity.schema.json"));
+assert.ok(validIdentity("local/project"),JSON.stringify(validIdentity.errors));
+const identityFixtures=read("fixtures/core-repository-identity-v1.json");
+for(const id of identityFixtures.canonical)
+ assert.ok(validIdentity(id),JSON.stringify(validIdentity.errors));
+for(const bad of identityFixtures.invalid)
+ assert.equal(validIdentity(bad),false,bad);
+assert.equal(identityFixtures.rest.encodedParameter,"local%2Fproject");
+assert.equal(identityFixtures.legacyLocalAlias.storageKey,"project");
+assert.equal(identityFixtures.cmpTransport.repository,identityFixtures.rest.id);
 ajv.addSchema(repo);
 const transport=read("transport.schema.json");
 const validManifest=ajv.compile(transport.$defs.manifest);

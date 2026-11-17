@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cmp.chat/spec/identity/core-v1.schema.json",
+  "title": "CMP Core v1 canonical repository identity",
+  "type": "string",
+  "pattern": "^local/[a-z0-9][a-z0-9_-]{1,63}$",
+  "minLength": 8,
+  "maxLength": 70,
+  "description": "Public self-hosted Core owner/name name. Maps local/name to unchanged SQLite key name; it is not an authorization principal."
+}
