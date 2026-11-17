@@ -15,7 +15,11 @@ Every `.cmp` request uses the same identity, tenant authorization, and compare-a
 
 Requests and results use `application/json`, require appropriate bearer authentication, and return `Cache-Control: no-store`. Unknown `view` values return 400. Write requests keep the server's Core record limits and return HTTP 409 on stale branch heads. All values in query strings are percent encoded. The `.cmp` suffix is a transport address, not a local file format.
 
-Self-hosted CMP Core v1 supports `/local/<name>.cmp` for the canonical\n`local/name` identity, while its persisted SQLite repository key remains the\nunchanged flat `name`. The same external ID is returned by Core REST and\n`.cmp` manifests. CMP Cloud uses `/owner/name.cmp` and independently\nenforces tenant-specific access. See `docs/canonical-repository-identity.md`.
+Self-hosted CMP Core v1 supports `/local/<name>.cmp` for the canonical
+`local/name` identity, while its persisted SQLite repository key remains the
+unchanged flat `name`. The same external ID is returned by Core REST and
+`.cmp` manifests. CMP Cloud uses `/owner/name.cmp` and independently
+enforces tenant-specific access. See `docs/canonical-repository-identity.md`.
 
 ## Clone and security
 
