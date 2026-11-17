@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "namespace": "local",
+  "canonical": [
+    "local/project",
+    "local/repo_1",
+    "local/a2",
+    "local/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "invalid": [
+    "project",
+    "other/project",
+    "LOCAL/project",
+    "local/",
+    "local/a",
+    "local/project/name",
+    "local/../secret",
+    "local/project.name",
+    "local/project%2Fchild",
+    "local/project%252Fchild",
+    "local/Project"
+  ],
+  "legacyLocalAlias": {
+    "flat": "project",
+    "canonical": "local/project",
+    "storageKey": "project"
+  },
+  "rest": {
+    "id": "local/project",
+    "encodedParameter": "local%2Fproject",
+    "headPath": "/v1/repos/local%2Fproject/head?branch=main"
+  },
+  "cmpTransport": {
+    "urlPath": "/local/project.cmp",
+    "repository": "local/project"
+  }
+}

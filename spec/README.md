@@ -32,9 +32,10 @@ CMP repositories are versioned knowledge containers, not Git source repositories
 | GET | /v1/repos/:repo/diff?from=...&to=... | Record-level difference |
 | GET | /v1/repos/:repo/events?cursor=0 | Historical repository mutation log, not a live stream |
 
-The existing development implementation accepts IDs in a local naming format;
-namespace identity and owner/repository normalization need cross-server tests
-before standardization. Neither a local path nor an external Git URL grants access.
+Canonical client-facing identity uses owner/name; the reference Core supports local/name.
+Core REST encodes local/name as a single parameter local%2Fname; flat SQLite keys
+remain unchanged. See docs/canonical-repository-identity.md and spec/identity.schema.json.
+Neither a local path nor an external Git URL grants access.
 
 ## Commit request and records
 
@@ -58,6 +59,6 @@ must not be required of a Core implementation or quietly included in Core.
 
 ## Schema and stability
 
-Machine-readable contracts: wire.schema.json and repository.schema.json.
+Machine-readable contracts: wire.schema.json, repository.schema.json and identity.schema.json.
 They are provisional until independent compatibility fixtures confirm matching
 behavior across CMP Server, CMP Cloud and CMP Client.

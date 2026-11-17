@@ -41,3 +41,16 @@ export function cmpTransportPath(repository:string):string{
   throw new Error("CMP repository must have owner/name format");
  return "/"+encodeURIComponent(parts[0]!)+"/"+encodeURIComponent(parts[1]!)+".cmp";
 }
+
+export const CORE_REPOSITORY_NAMESPACE = "local" as const;
+/** CMP Core public ID; persistence keys remain flat for legacy SQLite compatibility. */
+export function parseCoreRepositoryId(value:string):string {
+ if (!/^local\/[a-z0-9][a-z0-9_-]{1,63}$/.test(value))
+  throw new Error("CMP Core repository must be local/name with a valid name");
+ return value.slice("local/".length);
+}
+/** Treat encoded owner/name as ONE REST path parameter, never as path nesting. */
+export function coreRepositoryPathSegment(value:string):string{
+ parseCoreRepositoryId(value);
+ return encodeURIComponent(value);
+}
